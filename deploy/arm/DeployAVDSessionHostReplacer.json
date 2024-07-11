@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.26.54.24096",
-      "templateHash": "8063927267183433633"
+      "version": "0.28.1.47646",
+      "templateHash": "11467421666835150041"
     }
   },
   "parameters": {
@@ -92,12 +92,10 @@
       ]
     },
     "SecureBootEnabled": {
-      "type": "bool",
-      "defaultValue": "false"
+      "type": "bool"
     },
     "TpmEnabled": {
-      "type": "bool",
-      "defaultValue": "false"
+      "type": "bool"
     },
     "SubnetId": {
       "type": "string"
@@ -111,8 +109,7 @@
       ]
     },
     "IntuneEnrollment": {
-      "type": "bool",
-      "defaultValue": false
+      "type": "bool"
     },
     "ADDomainName": {
       "type": "string",
@@ -157,12 +154,6 @@
       "type": "int",
       "metadata": {
         "description": "Required: Yes | Number of session hosts to maintain in the host pool."
-      }
-    },
-    "MaxSimultaneousDeployments": {
-      "type": "int",
-      "metadata": {
-        "description": "Required: Yes | Number of max simultaneous deployments."
       }
     },
     "TagIncludeInAutomation": {
@@ -342,7 +333,7 @@
       }
     },
     "varImageReference": "[if(equals(parameters('MarketPlaceOrCustomImage'), 'Marketplace'), createObject('publisher', variables('varMarketPlaceImages')[parameters('MarketPlaceImage')].publisher, 'offer', variables('varMarketPlaceImages')[parameters('MarketPlaceImage')].offer, 'sku', variables('varMarketPlaceImages')[parameters('MarketPlaceImage')].sku, 'version', 'latest'), createObject('Id', parameters('GalleryImageId')))]",
-    "varSecurityProfile": "[if(equals(parameters('SecurityType'), 'Standard'), null(), createObject('SecurityType', parameters('SecurityType'), 'uefiSettings', createObject('secureBootEnabled', parameters('SecureBootEnabled'), 'vTpmEnabled', parameters('TpmEnabled'))))]",
+    "varSecurityProfile": "[if(equals(parameters('SecurityType'), 'Standard'), null(), createObject('securityType', parameters('SecurityType'), 'uefiSettings', createObject('secureBootEnabled', parameters('SecureBootEnabled'), 'vTpmEnabled', parameters('TpmEnabled'))))]",
     "varDomainJoinObject": "[if(equals(parameters('IdentityServiceProvider'), 'EntraID'), createObject('DomainType', 'EntraID', 'IntuneJoin', parameters('IntuneEnrollment')), createObject('DomainType', 'ActiveDirectory', 'DomainName', parameters('ADDomainName'), 'DomainJoinUserName', parameters('ADDomainJoinUserName'), 'ADOUPath', parameters('ADOUPath')))]",
     "varUniqueString": "[uniqueString(resourceGroup().id, parameters('HostPoolName'))]",
     "varFunctionAppName": "[format('AVDSessionHostReplacer-{0}', uniqueString(resourceGroup().id, parameters('HostPoolName')))]"
@@ -382,10 +373,6 @@
               {
                 "name": "_HostPoolName",
                 "value": "[parameters('HostPoolName')]"
-              },
-              {
-                "name": "_MaxSimultaneousDeployments",
-                "value": "[parameters('MaxSimultaneousDeployments')]"
               },
               {
                 "name": "_TargetSessionHostCount",
@@ -476,8 +463,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.26.54.24096",
-              "templateHash": "10461568145730079396"
+              "version": "0.28.1.47646",
+              "templateHash": "7456728969357441634"
             }
           },
           "parameters": {
@@ -677,8 +664,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.26.54.24096",
-              "templateHash": "9609859793350366993"
+              "version": "0.28.1.47646",
+              "templateHash": "2857855826257768512"
             }
           },
           "parameters": {
@@ -753,8 +740,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.26.54.24096",
-              "templateHash": "6068287418555259828"
+              "version": "0.28.1.47646",
+              "templateHash": "7506115272861073415"
             }
           },
           "parameters": {
@@ -812,8 +799,7 @@
                   "type": "object"
                 },
                 "SecurityProfile": {
-                  "type": "object",
-                  "defaultvalue": {}
+                  "type": "object"
                 },
                 "HostPoolName": {
                   "type": "string"
@@ -1078,8 +1064,8 @@
                             "autoUpgradeMinorVersion": true,
                             "settings": {
                               "Name": "[[parameters('DomainJoinObject').DomainName]",
-                              "OUPath": "[[parameters('DomainJoinObject').ADOUPath]",
-                              "User": "[[format('{0}\\{1}', parameters('DomainJoinObject').DomainName, parameters('DomainJoinObject').DomainJoinUserName)]",
+                              "OUPath": "[[parameters('DomainJoinObject').OUPath]",
+                              "User": "[[format('{0}\\{1}', parameters('DomainJoinObject').DomainName, parameters('DomainJoinObject').UserName)]",
                               "Restart": "true",
                               "Options": 3
                             },
@@ -1162,7 +1148,6 @@
                             "[[resourceId('Microsoft.Network/networkInterfaces', format('{0}-vNIC', parameters('VMName')))]"
                           ]
                         }
-
                       ]
                     }
                   }
@@ -1231,8 +1216,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.26.54.24096",
-              "templateHash": "5762611483574939749"
+              "version": "0.28.1.47646",
+              "templateHash": "16462481637304516294"
             }
           },
           "parameters": {
@@ -1291,8 +1276,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.26.54.24096",
-              "templateHash": "5762611483574939749"
+              "version": "0.28.1.47646",
+              "templateHash": "16462481637304516294"
             }
           },
           "parameters": {
